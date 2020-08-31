@@ -9,14 +9,14 @@
 
 <div id='id1'/>
 
-### Tema 1: ¿Qué es GraphQL?
+#### Tema 1: ¿Qué es GraphQL?
 
 - Acerca de GraphQL
 - GraphQl y REST
 
 <div id='id2'/>
 
-#### Tema 2: Hola mundo con Grapql,Nodejs, express?
+#### Tema 2: Hola mundo con Graphql,Nodejs, express?
 
 - Instalación de GraphQl,express,Apollo
 - Hola Mundo
