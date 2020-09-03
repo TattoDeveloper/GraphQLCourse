@@ -45,7 +45,9 @@
 
 - Hola Mundo
 
-  Primer que nada crearemos nuestro proyecto Node e instalaremos las dependencias necesarias
+  Primero que nada crearemos nuestro proyecto Node e instalaremos las dependencias necesarias
+
+  - Creamos una carpeta para el proyecto, en mi caso la llameré course
 
   - Iniciamos un nuevo proyecto
     ``` 
@@ -53,8 +55,57 @@
     ```
   - Instalamos las dependencias
     ```
-      npm install  graphql express apollo-server apollo-server-express
+      npm install  graphql express apollo-server apollo-server-express nodemon
     ```
+
+  - Ahora crearmos la estructura de directorios para el proyecto
+    - Creamos la carpeta src
+    - Dentro de src creamos una carpeta llamada hello
+    - Dentro de hello crearemos el archivo app.js
+    
+
+  - Dentro del package.json añadimos un script
+    ```
+     "scripts": {
+         "dev": "nodemon hello/app.js"
+      }
+ 
+    ```
+  - En app.js  importamos las dependecias que necesitamos
+    ```
+     const express = require('express')
+     const {ApolloServer,gql} = require('apollo-server-express')
+    ```
+  - Inicializamos express, los typeDef y los resolvers
+    ```
+      const app = express();
+      const typeDef = gql`
+        type Query{
+            me: User
+        }
+        
+        type User{
+            id: ID!
+            name: String!
+        }
+      const resolvers = {
+           Query:{
+                me:()=> {
+                    return {
+                        name:'Developer'
+                        }
+                }
+            }
+      }
+    ```
+    - Para definir los typeDef utilizamos gql que es un Tagged Template Literals que nos da la habilidad de llamar funciones utilizando el poder de los template strings
+
+    - Definimos un type Query que nos va permitir correr nuestra consulta
+
+    - Definimos un type User que tiene dos campos ID que es un string único. El signo ! indica que el campo es obligtario(no-nullable). Támbien definimos el campo name que es un String y tambíen es obligatorio.
+  
+   
+
 
   
 
