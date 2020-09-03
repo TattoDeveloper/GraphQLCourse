@@ -147,7 +147,7 @@ para probar nuestra aplicación.
 ```
 Y al darle al botón play nos corre la consuta.
   
-![Screenshot](screens/tema_1.jpg)
+![Screenshot](screens/tema_1.JPG)
 
 
 <div id='id3'/>
