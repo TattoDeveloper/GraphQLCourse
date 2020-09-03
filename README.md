@@ -28,15 +28,33 @@
 
   - Mientras en REST solemos exponer multiples   endpoints, para consultar la información  requerida, con GraphQL tenemos un único endpoint, y sobre el ejecutamos las consultas necesarias.
 
-  - Con GraphQL traemos únicamente la data que nos interesa. Así nos evitamos lo que si puede llegar a suceder con las API REST(Over Fetching, Under Fetching) es decier que traemos datos que realemente no necesitamos, o por el contrario que nos hacen falta datos.
+  - Con GraphQL traemos únicamente la data que nos interesa. Así nos evitamos lo que si puede llegar a suceder con las API REST(Over Fetching, Under Fetching) es decir que traemos datos que realemente no necesitamos, o por el contrario que nos hacen falta datos.
 
-  - Versionado: Si se necesita dar soporte al versionado de una API, con rest esto tal vez signifique crear nuevos endpoits, lo cual impactada directamente el posterior mantenimiento. Mientras que con GraphQL podemos simplemente añadir más campos o tipos, sin que esto implique romper los queries existentes.
-  Más adelaten ahodaremos en los tipo en GraphQL.
+  - Versionado: Si se necesita dar soporte al versionado de una API, con rest esto tal vez signifique crear nuevos endpoits, lo cual impacta directamente el posterior mantenimiento. Mientras que con GraphQL podemos simplemente añadir más campos o tipos, sin que esto implique romper los queries existentes.
+  Más adelate ahodaremos en los tipo en GraphQL.
 
 <div id='id2'/>
 
 #### Tema 2: Hola mundo con Graphql,Nodejs, express?
 
 - Instalación de GraphQl,express,Apollo
+  
+  Como se mencionó en el apartado anterior, existen multiples cliente para GraphQL en multiples plataformas. Para este curso, utilizaremos **Nodejs** que es el runtime que nos permite ejecutar **Javascript** del lado del servidor. Utilizaremos además **express** es un framework lijero que nos permite crear apliaciones web de forma rápida sobre Nodejs. Y como cliente de GraphQL utilizaremos Apollo
+  
+  **Nota:** Daré por hecho que conoces los fundamentos de Nodejs, por lo que no me detendré a explicarlos
+
 - Hola Mundo
+
+  Primer que nada crearemos nuestro proyecto Node e instalaremos las dependencias necesarias
+
+  - Iniciamos un nuevo proyecto
+    ``` 
+     npm init --yes
+    ```
+  - Instalamos las dependencias
+    ```
+      npm install  graphql express apollo-server apollo-server-express
+    ```
+
+  
 
