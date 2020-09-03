@@ -6,6 +6,8 @@
 **Índice**
 1. [Tema 1: ¿Qué es GraphQL?](#id1)
 2. [Tema 2: Hola mundo con Grapql,Nodejs, express](#id2)
+3. [Tema 3: Definición de tipos](#id3)
+4. [Tema 4: Mutaciones](#id4)
 
 <div id='id1'/>
 
@@ -30,12 +32,12 @@
 
   - Con GraphQL traemos únicamente la data que nos interesa. Así nos evitamos lo que si puede llegar a suceder con las API REST(Over Fetching, Under Fetching) es decir que traemos datos que realemente no necesitamos, o por el contrario que nos hacen falta datos.
 
-  - Versionado: Si se necesita dar soporte al versionado de una API, con rest esto tal vez signifique crear nuevos endpoits, lo cual impacta directamente el posterior mantenimiento. Mientras que con GraphQL podemos simplemente añadir más campos o tipos, sin que esto implique romper los queries existentes.
+  - Versionado: Si se necesita dar soporte al versionado de una API, con rest esto tal vez signifique crear nuevos endpoints, lo cual impacta directamente el posterior mantenimiento. Mientras que con GraphQL podemos simplemente añadir más campos o tipos, sin que esto implique romper los queries existentes.
   Más adelate ahodaremos en los tipo en GraphQL.
 
 <div id='id2'/>
 
-#### Tema 2: Hola mundo con Graphql,Nodejs, express?
+#### Tema 2: Hola mundo con Graphql,Nodejs, express
 
 - Instalación de GraphQl,express,Apollo
   
@@ -67,7 +69,7 @@
   - Dentro del package.json añadimos un script
     ```
      "scripts": {
-         "dev": "nodemon hello/app.js"
+         "dev": "nodemon src/hello/app.js"
       }
  
     ```
@@ -76,10 +78,10 @@
      const express = require('express')
      const {ApolloServer,gql} = require('apollo-server-express')
     ```
-  - Inicializamos express, los typeDef y los resolvers
+  - Inicializamos express, los typeDefs y los resolvers
     ```
       const app = express();
-      const typeDef = gql`
+      const typeDefs = gql`
         type Query{
             me: User
         }
@@ -98,12 +100,65 @@
             }
       }
     ```
-    - Para definir los typeDef utilizamos gql que es un Tagged Template Literals que nos da la habilidad de llamar funciones utilizando el poder de los template strings
+    - Para definir los typeDefs utilizamos gql que es un Tagged Template Literals que nos da la habilidad de llamar funciones utilizando el poder de los template strings
 
     - Definimos un type Query que nos va permitir correr nuestra consulta
 
     - Definimos un type User que tiene dos campos ID que es un string único. El signo ! indica que el campo es obligtario(no-nullable). Támbien definimos el campo name que es un String y tambíen es obligatorio.
+
+    - También definimos un resolve para obtener los datos. Los resolvers son una colección de funciones encargadas de obtener los datos que requerimos.
+  - Ahora inicializamos Apollo server y pasamos  app(express) a 
+    la función applyMiddleware() del servidor.
+
+    ```
+    const server = new ApolloServer({
+      typeDefs,
+      resolvers
+      });
+    
+     server.applyMiddleware({app});
+    
+    ```
+    - ApolloServer requiere 2 parámetros: los typeDef y los resolvers
   
+  - Ahora le decimos al servidor que escuche el puerto que     deseamos 
+    ``` 
+     app.listen(3000,()=> console.info("Running....."));
+    ```
+  - Por último, corremo el comando que definimos el package.json para ejecutar nuestra aplicación.
+    - En la terminal corremos el siguiente comando.
+    ```
+      npm run dev
+    ```
+    Esto nos levanta la aplicación el puerto indicado.
+- En este punto en el navegador colocaremos la siguiente url
+para probar nuestra aplicación.
+
+```
+ http://localhost:3000/graphql
+```
+- En lado izquierdo de la pantalla que nos habilita, corremos la siguiente consulta.
+```
+   { 
+    me{
+      name
+    }
+  }
+```
+Y al darle al botón play nos corre la consuta.
+  
+![Screenshot](screens/tema_1.jpg)
+
+
+<div id='id3'/>
+
+#### Tema 3: Definición de tipos
+   En construcción
+
+<div id='id4'/>
+
+#### Tema 4: Mutaciones
+   En construcción
    
 
 

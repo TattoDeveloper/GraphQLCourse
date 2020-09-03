@@ -3,7 +3,7 @@ const {ApolloServer,gql} = require('apollo-server-express')
 
 const app = express();
 
-const typeDef = gql`
+const typeDefs = gql`
   type Query{
     me: User
   }
@@ -22,3 +22,11 @@ const resolvers = {
         }
     }
 }
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers
+  });
+
+ server.applyMiddleware({app});
+ app.listen(3000,()=> console.info("Running....."));

@@ -2,9 +2,8 @@
   "name": "hello",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/hello/app.js"
   },
   "keywords": [],
   "author": "Jota Puerta <jrtatto@gmail.com>",
