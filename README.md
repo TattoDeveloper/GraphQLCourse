@@ -152,12 +152,46 @@ Y al darle al botón play nos corre la consuta.
 
 <div id='id3'/>
 
-#### Tema 3: Definición de tipos
-   En construcción
+#### Tema 3: Definición de Schema y de tipos
+   Un Schema en GraphQl nos permite describir la funcionalidades disponibles
+   para nuestra aplicación. 
+   Distinto a Rest que se depliega como una colección de Endpoints, en GraphQl pensamos y hablamos en tipos de datos y nuesta API expone una colleción de tipos datos
+   que llamamos Schema.
+   Los Schema se construyen a principalmente a partir de types y resolvers. 
+
+   GraphQl provee roots types, que ya vienen integrados a la especificación, pero también nos permite definir nuevos types.
+
+   Root Types:
+   
+   ``` 
+    const typeDefs = gql`
+        type Query{...}
+        type Mutation{...}
+        type Subscription{...}
+     
+   ```
+
+  #### type Query
+   Con el type Query podemos definir todas las consultas(queries) que se pueden hacer a traves de nuestro aplicación. Por Ejemplo:
+   ```
+     const typeDefs = gql`
+        type Query{
+          totalTwitts:Int!,
+          allTwitts:[Twitt!]!,
+          allUsers:[User!]!   
+        }
+      `
+   ```
+  
+  Como se puede ver, en la definición del type Query incluimos consultas de direfentes tipos. 
+  - totalTwitts:Int!: nos devuelve un entero (Scalar type)
+  - allTwitts:[Twitt!]! devuelve una lista que contiene un type definido por nostos llamado Twitt
+  - allUsers:[User!]! devuelve una lista que contiene un type definido por nostos llamado User
+  
 
 <div id='id4'/>
 
-#### Tema 4: Mutaciones
+#### Tema 4: Resolvers
    En construcción
    
 
