@@ -204,19 +204,27 @@ Y al darle al botón play nos corre la consuta.
           createUser(name:String!, email:String!):User!
         }
       `
-  }
   ```
   Con Mutation definimos las acciones que puede hacer el usario; en este caso,
   hemos definido las siguientes:
 
   - **createTwitt(text:String!):Twitt!**
-    - Estamos definiendo los usurios de nuestro servicio pueden crear twitts. 
-      Para ello le pedimos que debe pasar como parámetro, un texto (text:String!) y definimos también que se debe retornar un typ Twitt
+    - Estamos definiendo que  los usurios de nuestro servicio pueden crear twitts. 
+      Para ello le pedimos que debe pasar como parámetro, un texto (text:String!) y definimos también que se debe retornar un type Twitt.
   - **createUser(name:String!, email:String!):User!**
-    - Los usuarios de nuestro servicio, se pueden registrar y crear su propia cuenta, para eso creamos esta definición. Indicamos que se deben pasar dos parámetros de tipo String(name, email). A su vez esta definición debe retornar un type User
+    - Los usuarios de nuestro servicio, se pueden registrar y crear su propia cuenta, para eso creamos esta definición. Indicamos que se deben pasar dos parámetros de tipo String(name, email). A su vez esta definición debe retornar un type User.
 
   **Nota:**
    Tanto en las definiciones anteriores, como en el ejemplo de Query hacemos uso del símbolo(!). Este símbolo indica que el parámetro o el type donde es aplicado no puede ser nulo, es decir hace obligatorio el elemento donde es aplicado ejemplo: createUser(name:String!, email:String!) ambos parametros son requeridos. Si se quisiera permitir parametros opcionales, no se usa el símbolo(!) por ejemplo: createUser(name:String, email:String)
+
+  
+  #### type Subscription
+  Subscription nos permite implementar en nuestro servicio funcionalidad en tiempo real. Pero hablaremos de Subscription en un tema aparte dedicado solo este type.
+
+  
+  #### Tipos definidos por nosotros.
+
+
 
 <div id='id4'/>
 
