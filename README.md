@@ -6,8 +6,9 @@
 **Índice**
 1. [Tema 1: ¿Qué es GraphQL?](#id1)
 2. [Tema 2: Hola mundo con Grapql,Nodejs, express](#id2)
-3. [Tema 3: Definición de tipos](#id3)
-4. [Tema 4: Mutaciones](#id4)
+3. [Tema 3: Definición de Schema y de tipos](#id3)
+4. [Tema 4: Resolvers](#id4)
+5. [Tema 5: Fragments, Interfaces, Unions](#id5)
 
 <div id='id1'/>
 
@@ -168,8 +169,10 @@ Y al darle al botón play nos corre la consuta.
         type Query{...}
         type Mutation{...}
         type Subscription{...}
+        `
      
    ```
+  Para explicar los types, crearemo una pequeña aplicación que llamé miniTwitter. El código estará disponible dentro de este mismo repositorio.
 
   #### type Query
    Con el type Query podemos definir todas las consultas(queries) que se pueden hacer a traves de nuestro aplicación. Por Ejemplo:
@@ -185,13 +188,35 @@ Y al darle al botón play nos corre la consuta.
   
   Como se puede ver, en la definición del type Query incluimos consultas de direfentes tipos. 
   - totalTwitts:Int!: nos devuelve un entero (Scalar type)
-  - allTwitts:[Twitt!]! devuelve una lista que contiene un type definido por nostos llamado Twitt
-  - allUsers:[User!]! devuelve una lista que contiene un type definido por nostos llamado User
+  - allTwitts:[Twitt!]! devuelve una lista que contiene un type definido por nostos llamado Twitt.
+  - allUsers:[User!]! devuelve una lista que contiene un type definido por nostos llamado User.
+
+
+  #### type Mutation
+  La diferencia entre Mutation y Query es la intención. Mientras Query nos permite consultar, Mutatation cuando se desea cambiar el estado de nuestra aplicación. Cabe resaltar que podemos usar Query dentro de Mutation, si requerimos consultar alguna información del usarion que creo el twitt por ejemplo.
+  Son las acciones que los usuarios pueden hacer con nuestro servicio.
+
+  Por ejemplo:
+  ``` 
+     const typeDefs = gql`
+      type Mutation{
+          createTwitt(text:String!):Twitt!,
+          createUser(name:String!, email:String!):User!
+        }
+      `
+  }
+  ```
+
   
 
 <div id='id4'/>
 
 #### Tema 4: Resolvers
+   En construcción
+
+<div id='id5'/>
+
+#### Tema 5: Fragments, Interfaces, Unions
    En construcción
    
 
