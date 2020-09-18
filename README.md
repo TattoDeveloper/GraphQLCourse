@@ -193,8 +193,8 @@ Y al darle al botón play nos corre la consuta.
 
 
   #### type Mutation
-  La diferencia entre Mutation y Query es la intención. Mientras Query nos permite consultar, Mutatation cuando se desea cambiar el estado de nuestra aplicación. Cabe resaltar que podemos usar Query dentro de Mutation, si requerimos consultar alguna información del usarion que creo el twitt por ejemplo.
-  Son las acciones que los usuarios pueden hacer con nuestro servicio.
+  La diferencia entre Mutation y Query es la intención. Mientras Query nos permite consultar, Mutation se usa cuando se desea cambiar el estado de nuestra aplicación. Cabe resaltar que podemos usar Query dentro de Mutation, si requerimos consultar alguna información del usario que creo el twitt por ejemplo.
+  Mutation Son las acciones que los usuarios pueden hacer con nuestro servicio.
 
   Por ejemplo:
   ``` 
@@ -206,8 +206,17 @@ Y al darle al botón play nos corre la consuta.
       `
   }
   ```
+  Con Mutation definimos las acciones que puede hacer el usario; en este caso,
+  hemos definido las siguientes:
 
-  
+  - **createTwitt(text:String!):Twitt!**
+    - Estamos definiendo los usurios de nuestro servicio pueden crear twitts. 
+      Para ello le pedimos que debe pasar como parámetro, un texto (text:String!) y definimos también que se debe retornar un typ Twitt
+  - **createUser(name:String!, email:String!):User!**
+    - Los usuarios de nuestro servicio, se pueden registrar y crear su propia cuenta, para eso creamos esta definición. Indicamos que se deben pasar dos parámetros de tipo String(name, email). A su vez esta definición debe retornar un type User
+
+  **Nota:**
+   Tanto en las definiciones anteriores, como en el ejemplo de Query hacemos uso del símbolo(!). Este símbolo indica que el parámetro o el type donde es aplicado no puede ser nulo, es decir hace obligatorio el elemento donde es aplicado ejemplo: createUser(name:String!, email:String!) ambos parametros son requeridos. Si se quisiera permitir parametros opcionales, no se usa el símbolo(!) por ejemplo: createUser(name:String, email:String)
 
 <div id='id4'/>
 
