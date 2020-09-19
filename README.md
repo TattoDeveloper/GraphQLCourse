@@ -275,7 +275,30 @@ Y al darle al botón play nos corre la consuta.
 <div id='id4'/>
 
 #### Tema 4: Resolvers
-   En construcción
+   Los resolvers son funciones que se encargan de retornar los datos para campos particulares. Los datos son retornados en los tipos y formas definidos en el Schema.
+
+   Los resolvers pueden ser asíncronos y con ellos podemos actualizar datos desde una API rest, una base de datos, o cualquier otro tipo de servicios. Estos pueden retornar objetos(tipos) o valores scalares como Strings, Int,etc.
+
+   Los resolvers son un punto clave en la implentación de GraphQL.
+
+   Definamos nuestros resolvers
+
+  ```
+   const resolvers = {
+    Query:{
+        totalTwitts:()=> twitts.length,
+        allTwitts:()=> twitts,
+        allUsers:()=> users
+    }  
+  }
+  ```
+
+  Como vemos generamos los resolver para nuestras consultas(Query resolver). Creamos las siguentes 3 funciones:
+  - totalTwitts: que nos devuelve un scalar de tipo entero
+  - allTwitts: que nos devuelve una lista de objectos del tipo Twitt.
+  - allUsers: esta funcion nos devuslve una lista de objetosde tipo User.
+
+  Es muy importante observar, que  la funciones definidas dentro del Query resolver, siguen la definición del Schema; es decir si recordamos la definición que type Query, podemos ver que los resolver que escribimos aquí son un fiel reflejo de esa definición.
 
 <div id='id5'/>
 
