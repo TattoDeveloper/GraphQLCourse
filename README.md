@@ -294,11 +294,74 @@ Y al darle al botón play nos corre la consuta.
   ```
 
   Como vemos generamos los resolver para nuestras consultas(Query resolver). Creamos las siguentes 3 funciones:
-  - totalTwitts: que nos devuelve un scalar de tipo entero
+  - totalTwitts: que nos devuelve un scalar de tipo entero.
   - allTwitts: que nos devuelve una lista de objectos del tipo Twitt.
-  - allUsers: esta funcion nos devuslve una lista de objetosde tipo User.
+  - allUsers: esta funcion nos devuelve una lista de objetos de tipo User.
 
   Es muy importante observar, que  la funciones definidas dentro del Query resolver, siguen la definición del Schema; es decir si recordamos la definición que type Query, podemos ver que los resolver que escribimos aquí son un fiel reflejo de esa definición.
+
+  Continuando con nuestros resolvers:
+
+  ```
+   const resolvers = {
+    Query:{
+        totalTwitts:()=> twitts.length,
+        allTwitts:()=> twitts,
+        allUsers:()=> users
+    },  
+     Mutation:{
+        createTwitt:(parent, payload)=>{
+              const newTwitt ={
+                  id : uuidv4(),
+                  ...payload,
+                  date: Date.now()
+              }
+              twitts.push(newTwitt)
+              return newTwitt
+        },
+        createUser:(parent, payload)=>{
+            const newUser ={
+                id: uuidv4(),
+                ...payload
+            }
+            users.push(newUser)
+            return newUser
+        }
+    }
+  }
+  ```
+  Ahora añadimos el Mutation resolver. Al igual que en Query en Mutation, definimos funciones, que nos ayudaran a actualiar o cambiar el estado de la aplicación.
+
+  Podemos ver que los resolvers puede recibir parámetros. Hablaremos des estos parámetros acontinuación:
+  
+  - root o parent: Hace referencia al root resolver previo, es decir al root donde se encuentra definida la funcion.
+    ```
+    Mutation:{
+          createTwitt:(parent, payload)=>{...},
+    }
+    ```
+    En código anterior observamos que la función createTwitt recibe como primer parámetro parent(root). En este caso el Root es Mutation resolver.
+
+  - payload o args: Son los argumentos que pasamos en la definición del Schema.
+  Si recordamos, la definición del type Mutation luce así:
+  ```
+    type Mutation{
+        createTwitt(text:String!):Twitt!,
+        createUser(name:String!, email:String!):User!
+      } 
+  ```
+  
+  Vemos que la implementación en Mutation resolver se orienta por la difinición en type Mutation del Schema. Allí por ejemplo en la función createUser(name:String!, email:String!), definimos que reciben 2 parámetros: name, email. En los resolvers, todos los  parámetros que definamos vienen dentro de payload por lo que podríamos hacer lo siguiente dentro de la función:
+  ```
+    const {name, email} = payload
+    // ó 
+    payload.name
+  ```
+  Para acceded a los parametros definidos en el Schema.
+- contex: un objeto mutable que se provee a todos los resolvers
+- info: Información relevante acerca del query
+
+
 
 <div id='id5'/>
 
