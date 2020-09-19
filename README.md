@@ -223,7 +223,7 @@ Y al darle al botón play nos corre la consuta.
 
   
   #### Tipos definidos por nosotros.
-  Un servicio en GraphQL se construye a base de tipos(type). Por supuesto podemos definir nuestros propios objetos que reflejan la información que se puede consultar a través de nuestro servicio.
+  Un servicio en GraphQL se construye a base de tipos(type). Por supuesto podemos definir nuestros propios tipos que reflejan la información que se puede consultar a través de nuestro servicio.
 
   Un type está compuesto de una serie de campos(clave - valor), que son la definición  de la información que ese type en particular debe tener.
    Por ejemplo:
@@ -240,10 +240,36 @@ Y al darle al botón play nos corre la consuta.
   ```
 
   En el ejemplo anterior, definimos el type Twitt. Este a su vez, tiene los siguientes campos:
-   - id: es de tipo ID, que es una cadena única que identifica al objeto. Podemos notar que usar el símbolo(!) lo que indica que este campo no puede ser nulo.
-   - text: campo de tipo String y también
-   - date: campo de un tipo Scalar definido por nostros. No puede ser nulo.
-   - creator: este campo define una relación de el type Twitt con otro tipo el type User, que definiremos en un momento. Este campo hace referencia al usuario que creo el Twitt, por lo tanto no puede ser nulo.
+   - **id:** es de tipo ID, que es una cadena única que identifica al objeto. Podemos notar que usar el símbolo(!) lo que indica que este campo no puede ser nulo.
+   - **text:** campo de tipo String y también es obligatorio.
+   - **date:** campo de un tipo Scalar definido por nostros. No puede ser nulo.
+   - **creator:** este campo define una relación entre el  type Twitt con otro tipo el type User, que definiremos en un momento. Este campo hace referencia al usuario que creo el Twitt, por lo tanto no puede ser nulo.
+
+  Creamos ahora el type User.
+  ```
+  const typeDefs = gql`
+      type User{
+       id: ID!,
+       name: String!
+       email: String!
+      }
+   `
+  ```
+  Este nuevo type  tiene los siguientes campos
+  - **id** De tipo ID, identificador único que no puede ser nulo.
+  - **name** De tipo String y es obligatorio.
+  - **email** Tambien de tipo String y no puede ser nulo.
+
+
+  Como pudimos ver en el type Twitt utilizamos un valor Scalar de tipo Date. Pero para poder utilizarlo debemos definirlo.
+  ```
+   const typeDefs = gql`
+      scalar Date 
+    `
+  ```
+
+  Ahora sabemos que los Schema en GraphQl se construyen a traves de definiciones de tipos. 
+  Un Shcema describe la forma de los datos, pero no los obtiene por si mismo este trabajo lo hacen los resolvers que vermos en el siguiente tema.
 
 
 <div id='id4'/>
