@@ -359,14 +359,20 @@ Y al darle al botón play nos corre la consuta.
       payload.name
     ```
     Para acceded a los parametros definidos en el Schema.
-- contex: un objeto mutable que se provee a todos los resolvers
+- context: un objeto mutable que se provee a todos los resolvers
 - info: Información relevante acerca del query
 
 
 <div id='id5'/>
 
 #### Tema 5: Conecxión con base de datos
-   En construcción
+   Hasta el momento hemos utilizado la información en memoria, valiendonos de arreglos. Pero ahora para el siguiente ejercicio, nos conectaremos a una base de datos. Para GraphQL es indiferente a que fuente de datos se quiere conectar(Se puedes usar Mysql, Mongo, SQl Server, Postgres, etc).
+   Pero antes de conectarnos hablemos un poco del contexto(Context)
+
+   **Context**
+   Como lo definimos en el tema de los resolvers, el contexto es un objeto en el que alojamos información, que puede ser accedida desde cualquier resolver. Por lo que lo hace ideal para guardar información de autenticación, información de la base de datos, etc.
+   Desde dentro de un resolver se pudiera llamar directamente la base de datos, o hacer un llamado a una API REST. pero es más común por separación de responsabilidades extraer esa lógica en un objeto y ponerla en el contexto
+   
 
 
 <div id='id6'/>
