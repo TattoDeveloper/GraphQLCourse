@@ -8,7 +8,8 @@
 2. [Tema 2: Hola mundo con Grapql,Nodejs, express](#id2)
 3. [Tema 3: Definición de Schema y de tipos](#id3)
 4. [Tema 4: Resolvers](#id4)
-5. [Tema 5: Fragments, Interfaces, Unions](#id5)
+5. [Tema 5: Conexión con Base de datos](#id5)
+6. [Tema 6: Fragments, Interfaces, Unions](#id6)
 
 <div id='id1'/>
 
@@ -343,29 +344,34 @@ Y al darle al botón play nos corre la consuta.
     En código anterior observamos que la función createTwitt recibe como primer parámetro parent(root). En este caso el Root es Mutation resolver.
 
   - payload o args: Son los argumentos que pasamos en la definición del Schema.
-  Si recordamos, la definición del type Mutation luce así:
-  ```
-    type Mutation{
-        createTwitt(text:String!):Twitt!,
-        createUser(name:String!, email:String!):User!
-      } 
-  ```
-  
-  Vemos que la implementación en Mutation resolver se orienta por la difinición en type Mutation del Schema. Allí por ejemplo en la función createUser(name:String!, email:String!), definimos que reciben 2 parámetros: name, email. En los resolvers, todos los  parámetros que definamos vienen dentro de payload por lo que podríamos hacer lo siguiente dentro de la función:
-  ```
-    const {name, email} = payload
-    // ó 
-    payload.name
-  ```
-  Para acceded a los parametros definidos en el Schema.
+    Si recordamos, la definición del type Mutation luce así:
+    ```
+      type Mutation{
+          createTwitt(text:String!):Twitt!,
+          createUser(name:String!, email:String!):User!
+        } 
+    ```
+    
+    Vemos que la implementación en Mutation resolver se orienta por la difinición en type Mutation del Schema. Allí por ejemplo en la función createUser(name:String!, email:String!), definimos que reciben 2 parámetros: name, email. En los resolvers, todos los  parámetros que definamos vienen dentro de payload por lo que podríamos hacer lo siguiente dentro de la función:
+    ```
+      const {name, email} = payload
+      // ó 
+      payload.name
+    ```
+    Para acceded a los parametros definidos en el Schema.
 - contex: un objeto mutable que se provee a todos los resolvers
 - info: Información relevante acerca del query
 
 
-
 <div id='id5'/>
 
-#### Tema 5: Fragments, Interfaces, Unions
+#### Tema 5: Conecxión con base de datos
+   En construcción
+
+
+<div id='id6'/>
+
+#### Tema 6: Fragments, Interfaces, Unions
    En construcción
    
 

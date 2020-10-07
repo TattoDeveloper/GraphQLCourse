@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "nodemon src/miniTwitter/app.js"
+    "dev": "nodemon src/connection/app.js"
   },
   "keywords": [],
   "author": "Jota Puerta <jrtatto@gmail.com>",
