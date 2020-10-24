@@ -378,7 +378,7 @@ Y al darle al botón play nos corre la consuta.
 
    Dentro el archivos del Backend se encuentran dentro la carpte course/src/connection. Los del front los encontrarás en front/blog. No es importante que sepas React, lo único que se pretende es ver un pequeño caso un poco más realista de como usar graphql.
   
-   **Backend:**
+   **Parte 1 - Backend:**
 
    Para el construir nuestra API, vamos a instalar el paquete mongodb:
    ```
@@ -538,7 +538,7 @@ Hemos definido la función initialized como async, por que debemos esperar las c
 ```
 
 En las líneas anteriores vimos, como conectarnos a una base de datos Mongodb. El cliente de mongo para node recibe los siguientes parametros:
-- uri: En el ejemplo usamos la variables de entorno para almacenar dicha cadena de conexión, la cual se almacenta en el archivo .env dentro de la carpeta de nuestro proyecto. Cabe resaltar que este archivo .env no debería se publicado en el repositorio del proyecto
+- uri: En el ejemplo usamos las variables de entorno para almacenar dicha cadena de conexión, la cual se almacenta en el archivo .env dentro de la carpeta de nuestro proyecto. Cabe resaltar que este archivo .env no debería ser publicado en el repositorio del proyecto
 
 - options: este objeto puede recibir una serie de claves /valor de que harán que nuestra conexión se comporte de una forma u otra, dependiendo de que le pasemos.
 
@@ -555,7 +555,69 @@ Aquí una línea muy importante. Un poco atrás hablamos que el context nos perm
   context
   });
 ```
-   
+
+Iniciamos nuestro servidor
+```
+server.applyMiddleware({app});
+ app.listen(3000,()=> console.info(`Graph run on,Running.....${server.graphqlPath}`));
+
+```
+  
+  *** la API ***
+
+  Dentro de nuestros typeDefs definimo lo siguiente:
+
+  - Los types:
+   ```
+    type User{
+        _id: ID!,
+        user: String!
+        email: String!
+        posts:[Post!]
+    }
+
+    type Post{
+        _id: ID!
+        title:String!
+        body: String!
+        user:User!
+    }
+   ```
+
+  - Los inputs:
+   ```
+    input UserInput{
+     user:String!
+     email:String
+    }
+
+    input PostInput{
+        title:String!
+        body: String!
+        published: Boolean!
+        userID: String!
+    }
+   ```
+  
+  - Los queries:
+     ```
+       type Query{
+          allUsers:[User!]!
+          allPost:[Post!]!
+        }
+      ```
+    
+De los que obtendremos todos los usuarios, y todos los post de dichos usuarios
+
+ - Las mutaciones:
+  ```
+    type Mutation{
+     createUser(input: UserInput!):User!
+     createPost(input: PostInput):Post!
+  }
+  ```
+
+  Cabe resaltar que nuestras mutaciones están recibiendo como parámetros los siguiente: input:<tipo de input>. Es momento entonces de hablar de los Inputs en graphql
 
 
 <div id='id6'/>
