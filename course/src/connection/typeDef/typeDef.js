@@ -2,48 +2,40 @@ const {gql} = require('apollo-server-express')
 
 const typeDefs = gql`
 type Query{
-  totalTwitts:Int!,
-  allTwitts:[Twitt!]!,
   allUsers:[User!]!
+  allPost:[Post!]!
 }
 
 type Mutation{
-    createTwitt(input: TwittInput!):Twitt!,
     createUser(input: UserInput!):User!
+    createPost(input: PostInput):Post!
 }
 
 input UserInput{
-    name:String!
+    user:String!
     email:String
 }
 
+input PostInput{
+    title:String!
+    body: String!
+    published: Boolean!
+    userID: String!
+}
+
 type User{
-    id: ID!,
-    name: String!
+    _id: ID!,
+    user: String!
     email: String!
-    twitts:[Twitt!]!
+    posts:[Post!]
 }
 
-enum TwittCategory{
-  DEFAULT
-  POLITICAL
-  ARTISTIC
-  SPORT
+type Post{
+    _id: ID!
+    title:String!
+    body: String!
+    user:User!
 }
-
-input TwittInput{
-   text: String!
-   category: TwittCategory=DEFAULT
-}
-
-type Twitt{
-  id: ID!
-  text: String!
-  date: Date
-  creator: User!
-  category: TwittCategory
-}
-scalar Date
 `
 
 module.exports = typeDefs

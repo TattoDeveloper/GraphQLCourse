@@ -1,27 +1,38 @@
+const { Db, ObjectId } = require("mongodb")
+
 const resolvers = {
     Query:{
-        totalTwitts:()=> twitts.length,
-        allTwitts:()=> twitts,
-        allUsers:()=> users
+        allUsers:(parent, payload,{db})=>{
+            return db.collection('users').find({}).toArray()
+        },
+        allPost:async(_,payload,{db})=>{
+            const users = await db.collection('users').find({}).toArray()
+            return users[0].posts
+        }
     },
     Mutation:{
-        createTwitt:(parent, payload)=>{
-              const newTwitt ={
-                  id : uuidv4(),
-                  ...payload.input,
-                  date: Date.now()
-              }
-
-              twitts.push(newTwitt)
-              return newTwitt
-        },
-        createUser:(parent, payload)=>{
+        createUser:(parent, payload, {db})=>{
             const newUser ={
-                id: uuidv4(),
-                ...payload.input
+                ...payload.input,
+                posts:[]
             }
-            users.push(newUser)
+            const users = db.collection('users')
+            users.insertOne(newUser)
+
             return newUser
+        },
+        createPost:async(parent, {input}, {db})=>{
+            const newPost ={
+                ...input
+            }
+            const users = db.collection('users')
+
+
+            await users.updateOne(
+                {_id: ObjectId(input.userID)},
+                {$push: { posts: newPost } }
+            )
+            return newPost
         }
     }
   

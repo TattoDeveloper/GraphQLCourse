@@ -365,13 +365,19 @@ Y al darle al botón play nos corre la consuta.
 
 <div id='id5'/>
 
-#### Tema 5: Conecxión con base de datos
+#### Tema 5: Conexión con base de datos
    Hasta el momento hemos utilizado la información en memoria, valiendonos de arreglos. Pero ahora para el siguiente ejercicio, nos conectaremos a una base de datos. Para GraphQL es indiferente a que fuente de datos se quiere conectar(Se puedes usar Mysql, Mongo, SQl Server, Postgres, etc).
-   Pero antes de conectarnos hablemos un poco del contexto(Context)
+   Pero antes de conectarnos hablemos un poco del contexto(Context).
 
-   **Context**
+   **Context:**
    Como lo definimos en el tema de los resolvers, el contexto es un objeto en el que alojamos información, que puede ser accedida desde cualquier resolver. Por lo que lo hace ideal para guardar información de autenticación, información de la base de datos, etc.
-   Desde dentro de un resolver se pudiera llamar directamente la base de datos, o hacer un llamado a una API REST. pero es más común por separación de responsabilidades extraer esa lógica en un objeto y ponerla en el contexto
+   Desde dentro de un resolver se pudiera llamar directamente la base de datos, o hacer un llamado a una API REST. pero es más común por separación de responsabilidades,  extraer esa lógica en un objeto y ponerla en el contexto.
+
+   **Continuamos:**
+   Ya que conocemos un poco mejor lo que es el context, es moment para realizar nuestro trabajo con base de datos. Para esto utilizaremos, Nodejs junto a Mongodb, y realizaremos un pequeño front en Reactjs que se conecte a la api grapql.
+
+   Dentro el archivos del Backend se encuentran dentro la carpte course/src/connection. Los del front los encontrarás en front/blog. No es importante que sepas React, lo único que se pretende es ver un pequeñ caso un poco más realista de como usar graphql.
+
    
 
 
