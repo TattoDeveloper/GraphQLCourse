@@ -755,6 +755,10 @@ Como ven aunque es un ejemplo muy sencillo, no muestra la utilidad del context, 
 - Creamos un post
   ![Screenshot](screens/mutation_2.JPG)
 
+
+  Lo que nos daría en mongo:
+  ![Screenshot](screens/mongo.JPG)
+
 - Listamos un los post para el usuario
   ![Screenshot](screens/posts_1.JPG)
 
