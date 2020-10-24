@@ -1,12 +1,10 @@
 const express = require('express')
 const {ApolloServer} = require('apollo-server-express')
-const typeDefs = require('./typeDef/typeDef')
-const resolvers = require('./Resolvers/Resolvers')
 const {MongoClient } = require('mongodb')
 require('dotenv').config()
 
-// const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://jota_puerta:<password>@cluster0.laube.mongodb.net/<dbname>?retryWrites=true&w=majority";
+const typeDefs = require('./typeDef/typeDef')
+const resolvers = require('./Resolvers/Resolvers')
 
 
 async function initialized(){

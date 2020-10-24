@@ -386,7 +386,21 @@ Y al darle al botón play nos corre la consuta.
    ```
    El anterior comando nos añadirá mongo a las dependecias de proyecto. Mongo es una base de datos NoSql. Mongo es una base de datos basada en documentos, lo que quiere decir que los datos no son guardados en tablas, si no en una estructura de datos similar a JSON(BSON)
 
+   Además de  mongo instalaremos otra nueva dependecia, y esta nos permitirá, trabajar las variables de entorno
 
+   ```
+    yarn add dotenv
+   ```
+   Posterior a esto creamos un archivo .env donde almacenaremos, los datos de acceso a fuentes de datos por ejemplo.
+
+   Ahora importamos las dependencias necesarias en nuestro archivo app.js
+
+   ```
+     const express = require('express')
+    const {ApolloServer} = require('apollo-server-express')
+    const {MongoClient } = require('mongodb')
+    require('dotenv').config()
+   ```
 
    
 
