@@ -397,10 +397,105 @@ Y al darle al botón play nos corre la consuta.
 
    ```
      const express = require('express')
-    const {ApolloServer} = require('apollo-server-express')
-    const {MongoClient } = require('mongodb')
-    require('dotenv').config()
+     const {ApolloServer} = require('apollo-server-express')
+     const {MongoClient } = require('mongodb')
+     require('dotenv').config()
    ```
+   
+   Diferente a como se ha venido haciendo en los ejercicios anteriores, ahora crearemos los resolvers y los typeDef en archivos independiente cada uno, con el el fin de tener más organizado nuestro código.
+
+
+   Crearemos una carpeta llamada typeDef y dentro crearemos un archivo llamado typeDef.js
+
+   ```
+     const {gql} = require('apollo-server-express')
+
+    const typeDefs = gql`
+    type Query{
+      allUsers:[User!]!
+      allPost:[Post!]!
+    }
+
+    type Mutation{
+        createUser(input: UserInput!):User!
+        createPost(input: PostInput):Post!
+    }
+
+    input UserInput{
+        user:String!
+        email:String
+    }
+
+    input PostInput{
+        title:String!
+        body: String!
+        published: Boolean!
+        userID: String!
+    }
+
+    type User{
+        _id: ID!,
+        user: String!
+        email: String!
+        posts:[Post!]
+    }
+
+    type Post{
+        _id: ID!
+        title:String!
+        body: String!
+        user:User!
+    }
+    `
+
+    module.exports = typeDefs
+   ```
+
+   Crearemos una carpeta Resolvers y dentro un archivos Resolvers.js 
+   ```
+     const { ObjectId } = require("mongodb")
+
+      const resolvers = {
+          Query:{
+              allUsers:(parent, payload,{db})=>{
+                  return db.collection('users').find({}).toArray()
+              },
+              allPost:async(_,payload,{db})=>{
+                  const users = await db.collection('users').find({}).toArray()
+                  return users[0].posts
+              }
+          },
+          Mutation:{
+                createUser:(parent, payload, {db})=>{
+                    const newUser ={
+                        ...payload.input,
+                        posts:[]
+                    }
+                    const users = db.collection('users')
+                    users.insertOne(newUser)
+
+                    return newUser
+                },
+                createPost:async(parent, {input}, {db})=>{
+                    const newPost ={
+                        ...input
+                    }
+                    const users = db.collection('users')
+
+
+                    await users.updateOne(
+                        {_id: ObjectId(input.userID)},
+                        {$push: { posts: newPost } }
+                    )
+                    return newPost
+                }
+            }
+          
+        }
+
+        module.exports = resolvers
+   ```
+
 
    
 

@@ -1,4 +1,4 @@
-const { Db, ObjectId } = require("mongodb")
+const { ObjectId } = require("mongodb")
 
 const resolvers = {
     Query:{
