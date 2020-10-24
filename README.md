@@ -563,7 +563,7 @@ server.applyMiddleware({app});
 
 ```
   
-  *** la API ***
+  **la API**
 
   Dentro de nuestros typeDefs definimo lo siguiente:
 
@@ -617,7 +617,35 @@ De los que obtendremos todos los usuarios, y todos los post de dichos usuarios
   }
   ```
 
-  Cabe resaltar que nuestras mutaciones están recibiendo como parámetros los siguiente: input:<tipo de input>. Es momento entonces de hablar de los Inputs en graphql
+  Cabe resaltar que nuestras mutaciones están recibiendo como parámetros los siguiente: input:[tipo de input]. Es momento entonces de hablar de los Inputs en graphql.
+
+  **Input**
+
+  Los inputs no permiten agrupar valors que deben ser pasados como parámetros a nuestras mutaciones.
+
+  Tomemos como ejemplo createPost y creamos una versión sin Input. Para crear post necesitamos, el título, el cuerpo del post, si está publicado o no y el id del autor. Por lo que la mutación se vería así:
+  ```
+  createPost(title:String!, body:String!,published: Boolean!, userID: String!)
+  ```
+
+Aunque la anterior línea no está mal, y funciona correctamente, podemos ver que la lista de los parámeros se van extendiendo y si recibiera unos cuantos más ya se imaginarán como se vería nuestra mutación. Es por eso que los inputs no ayuda para manteners nuestro código más simple y legible.
+
+El siguiente input soluciona el caso anterior, agrupando los parámetros necesario en un solo tipo:
+
+```
+ input PostInput{
+        title:String!
+        body: String!
+        published: Boolean!
+        userID: String!
+  }
+```
+
+Por lo que ahora nuestra mutación se verá así:
+
+```
+ createPost(input: PostInput)
+```
 
 
 <div id='id6'/>
