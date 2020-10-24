@@ -496,7 +496,65 @@ Y al darle al botón play nos corre la consuta.
         module.exports = resolvers
    ```
 
+ Es momento entonces de cargar estos archivos creados en app.js
 
+```
+ const typeDefs = require('./typeDef/typeDef')
+ const resolvers = require('./Resolvers/Resolvers')
+
+```
+
+Seguido de esto definiremos una funcion de inicialización para nuestra apliacación y la invoacamos.
+
+```
+ async function initialized(){
+
+  const app = express();
+  const client = await new MongoClient(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true }).connect()
+  const context = { db: client.db('graph')}
+ const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context
+  });
+
+app.get('/',(req,res)=>{
+    res.send("Hi!!")
+})
+
+
+ server.applyMiddleware({app});
+ app.listen(3000,()=> console.info(`Graph run on,Running.....${server.graphqlPath}`));
+}
+
+initialized()
+```
+
+Hemos definido la función initialized como async, por que debemos esperar las conexión a la base de datos mongo y este proceso es asíncrono.
+
+
+```
+   const client = await new MongoClient(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true }).connect()
+```
+
+En las líneas anteriores vimos, como conectarnos a una base de datos Mongodb. El cliente de mongo para node recibe los siguientes parametros:
+- uri: En el ejemplo usamos la variables de entorno para almacenar dicha cadena de conexión, la cual se almacenta en el archivo .env dentro de la carpeta de nuestro proyecto. Cabe resaltar que este archivo .env no debería se publicado en el repositorio del proyecto
+
+- options: este objeto puede recibir una serie de claves /valor de que harán que nuestra conexión se comporte de una forma u otra, dependiendo de que le pasemos.
+
+```
+   const context = { db: client.db('graph')}
+```
+
+Aquí una línea muy importante. Un poco atrás hablamos que el context nos permite guardar información que podrá ser accedida por cualquier resolver. Pues bien, aquí guardamos la referencia a nuestra base de datos mongo. Por lo que ahora al crear nuestro apollo-server le pasamos además de los resolvers y los types, también el contexto.
+
+```
+ const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context
+  });
+```
    
 
 
