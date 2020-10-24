@@ -647,6 +647,102 @@ Por lo que ahora nuestra mutación se verá así:
  createPost(input: PostInput)
 ```
 
+Es momento de revisar los Resolvers:
+
+ - Los queries:
+ ```
+  Query:{
+        allUsers:(parent, payload,{db})=>{
+            return db.collection('users').find({}).toArray()
+        },
+        allPost:async(_,payload,{db})=>{
+            const users = await db.collection('users').find({}).toArray()
+            return users[0].posts
+        }
+    },
+ ```
+
+***El contexto***
+
+En el fragment de código anterior estamos viendo que como tercer parametro en los query resolver recibmos un objecto que representa el contexto y dentro de este la clave db, que nos da acceso a la referencia de nuestra base de datos.
+
+```
+ allUsers:(parent, payload,{db})=>{...}
+``` 
+ 
+ Ahora dentro del cuerpo de la función podrmos hacer uso de esa conexión con mongodb
+
+ ```
+   allUsers:(parent, payload,{db})=>{
+            return db.collection('users').find({}).toArray()
+    }
+ ```
+
+ ```
+ db.collection('users').find({}).toArray()
+ ```
+La línea anterior le dice a mongo, que me devuelva todos los usuarios dentro de la colección users.
+
+- mutaciones:
+
+```
+  createUser:(parent, payload, {db})=>{
+                 const newUser ={
+                     ...payload.input,
+                     posts:[]
+                 }
+                 const users = db.collection('users')
+                 users.insertOne(newUser)
+
+                 return newUser
+             },
+             createPost:async(parent, {input}, {db})=>{
+                 const newPost ={
+                     ...input
+                 }
+                 const users = db.collection('users')
+
+
+                 await users.updateOne(
+                     {_id: ObjectId(input.userID)},
+                     {$push: { posts: newPost } }
+                 )
+                 return newPost
+             }
+```
+
+De la misma manera que en los queries, en las mutaciones, tambien recibimos el contexto como tercer parámetro y dentro de este la referencia a la base de datos.
+
+Tomámos como referencia, crear un post:
+
+```
+      createPost:async(parent, {input}, {db})=>{
+                 const newPost ={
+                     ...input
+                 }
+                 const users = db.collection('users')
+
+
+                 await users.updateOne(
+                     {_id: ObjectId(input.userID)},
+                     {$push: { posts: newPost } }
+                 )
+                 return newPost
+             }
+```
+
+Notar  el segundo parámetro de la mutación lo que es el payload, dentro de este recibimod input. Est inpur hace referencia, al input type, que definimos en el schema.
+
+```
+input PostInput{....}
+```
+
+Creamos nuestro usuario con las propiedades del input type usando el spreat operator de Javascript
+```
+ const newPost ={...input }
+```
+
+
 
 <div id='id6'/>
 
