@@ -374,9 +374,19 @@ Y al darle al botón play nos corre la consuta.
    Desde dentro de un resolver se pudiera llamar directamente la base de datos, o hacer un llamado a una API REST. pero es más común por separación de responsabilidades,  extraer esa lógica en un objeto y ponerla en el contexto.
 
    **Continuamos:**
-   Ya que conocemos un poco mejor lo que es el context, es moment para realizar nuestro trabajo con base de datos. Para esto utilizaremos, Nodejs junto a Mongodb, y realizaremos un pequeño front en Reactjs que se conecte a la api grapql.
+   Ya que conocemos un poco mejor lo que es el context, es momento para realizar nuestro trabajo con base de datos. Para esto utilizaremos, Nodejs junto a Mongodb, y realizaremos un pequeño front en Reactjs que se conecte a la api grapql.
 
-   Dentro el archivos del Backend se encuentran dentro la carpte course/src/connection. Los del front los encontrarás en front/blog. No es importante que sepas React, lo único que se pretende es ver un pequeñ caso un poco más realista de como usar graphql.
+   Dentro el archivos del Backend se encuentran dentro la carpte course/src/connection. Los del front los encontrarás en front/blog. No es importante que sepas React, lo único que se pretende es ver un pequeño caso un poco más realista de como usar graphql.
+  
+   **Backend:**
+
+   Para el construir nuestra API, vamos a instalar el paquete mongodb:
+   ```
+     yarn add mongodb
+   ```
+   El anterior comando nos añadirá mongo a las dependecias de proyecto. Mongo es una base de datos NoSql. Mongo es una base de datos basada en documentos, lo que quiere decir que los datos no son guardados en tablas, si no en una estructura de datos similar a JSON(BSON)
+
+
 
    
 
