@@ -693,7 +693,6 @@ La línea anterior le dice a mongo, que me devuelva todos los usuarios dentro de
                  }
                  const users = db.collection('users')
                  users.insertOne(newUser)
-
                  return newUser
              },
              createPost:async(parent, {input}, {db})=>{
@@ -701,8 +700,6 @@ La línea anterior le dice a mongo, que me devuelva todos los usuarios dentro de
                      ...input
                  }
                  const users = db.collection('users')
-
-
                  await users.updateOne(
                      {_id: ObjectId(input.userID)},
                      {$push: { posts: newPost } }
@@ -721,8 +718,6 @@ Tomámos como referencia, crear un post:
                      ...input
                  }
                  const users = db.collection('users')
-
-
                  await users.updateOne(
                      {_id: ObjectId(input.userID)},
                      {$push: { posts: newPost } }
@@ -739,8 +734,35 @@ input PostInput{....}
 
 Creamos nuestro usuario con las propiedades del input type usando el spreat operator de Javascript
 ```
- const newPost ={...input }
+ const newPost ={ ...input }
 ```
+
+Luego de obtener la lista de usuarios, actualizamos la lista post para el usuario en particular que lo creó
+
+```
+ await users.updateOne(
+                {_id: ObjectId(input.userID)},
+                {$push: { posts: newPost } }
+            )
+```
+Como ven aunque es un ejemplo muy sencillo, no muestra la utilidad del context, y que con graphql podemos sin ningun problema conectarnos y obtener información de las fuentes de datos que necesitemos.
+
+**Ejemplo de ejecución**
+- Creamos un usuario
+
+  ![Screenshot](screens/mutation_1.JPG)
+
+- Creamos un post
+  ![Screenshot](screens/mutation_2.JPG)
+
+- Listamos un los post para el usuario
+  ![Screenshot](screens/posts_1.JPG)
+
+
+**Parte 2 - Front:**
+
+En construcción
+
 
 
 

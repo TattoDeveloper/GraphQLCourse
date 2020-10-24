@@ -26,8 +26,6 @@ const resolvers = {
                 ...input
             }
             const users = db.collection('users')
-
-
             await users.updateOne(
                 {_id: ObjectId(input.userID)},
                 {$push: { posts: newPost } }
