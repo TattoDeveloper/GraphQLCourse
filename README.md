@@ -768,7 +768,7 @@ Como ven aunque es un ejemplo muy sencillo, no muestra la utilidad del context, 
 Ahora es el momento de ver un pequeño caso práctico, conectando nuesta API Graphql
 con una aplicación react. En la carpeta front, encontrarán todo el código.
 
-- Creamos una aplicación en react
+- Creamos una aplicación en React
   ```
     npx create-react-app blog
   ```
@@ -781,7 +781,7 @@ con una aplicación react. En la carpeta front, encontrarán todo el código.
    ```
 - nos posicionamos en el folder creado y corremos el comando "start"
 
-
+En construcción...
 
 
 <div id='id6'/>
