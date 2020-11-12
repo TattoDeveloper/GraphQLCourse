@@ -726,7 +726,7 @@ Tomámos como referencia, crear un post:
              }
 ```
 
-Notar  el segundo parámetro de la mutación lo que es el payload, dentro de este recibimod input. Est inpur hace referencia, al input type, que definimos en el schema.
+Notar  el segundo parámetro de la mutación lo que es el payload, dentro de este recibimos input. Este input hace referencia, al input type, que definimos en el schema.
 
 ```
 input PostInput{....}
@@ -765,7 +765,21 @@ Como ven aunque es un ejemplo muy sencillo, no muestra la utilidad del context, 
 
 **Parte 2 - Front:**
 
-En construcción
+Ahora es el momento de ver un pequeño caso práctico, conectando nuesta API Graphql
+con una aplicación react. En la carpeta front, encontrarán todo el código.
+
+- Creamos una aplicación en react
+  ```
+    npx create-react-app blog
+  ```
+- Una vez nos descarga las dependencias necesarias, nos crea una carpeta,
+  con el nombre que definimos en el comando anterior. 
+
+  ``` 
+    cd blog
+    npm start
+   ```
+- nos posicionamos en el folder creado y corremos el comando "start"
 
 
 

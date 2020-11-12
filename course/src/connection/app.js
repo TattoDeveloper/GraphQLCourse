@@ -24,7 +24,7 @@ app.get('/',(req,res)=>{
 
 
  server.applyMiddleware({app});
- app.listen(3000,()=> console.info(`Graph run on,Running.....${server.graphqlPath}`));
+ app.listen(3001,()=> console.info(`Graph run on,Running.....${server.graphqlPath}`));
 }
 
 initialized()
