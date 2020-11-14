@@ -781,7 +781,130 @@ con una aplicación react. En la carpeta front, encontrarán todo el código.
    ```
 - nos posicionamos en el folder creado y corremos el comando "start"
 
-En construcción...
+Una vez creado nuestro proyecto instalaremos las dependencias necesaria para trabajar con grapql
+```
+  npm install  apollo-boost apollo/react-hooks graphql
+```
+- apollo-boost: Este paquete nos permite usar un cliente Apollo, 
+  para conectarnos con nuestro servicio grapql.
+
+  Creamos un archivo js llamado cliente y allí escribiremos el siguiente código.
+ 
+  ```
+    import ApolloClient from 'apollo-boost'
+
+    export const client = new ApolloClient({
+        uri: 'http://localhost:3001/graphql'
+    })
+  ```
+
+  - graphql: Es la implementación de la especificación de GrapQL para Javascript.
+
+  - @apollo/react-hooks: Nos va a permitir ejecutar nuestros query, mutaciones y subscripciones haciendo uso de los hooks, caractirista de React.
+
+  Ahora para usar el cliente anterior mente creado
+  usarmos en al archivo app.js importamos nuestro cliente.
+
+  ```
+    import { ApolloProvider } from '@apollo/react-hooks'
+    import {client} from './client'
+  ```
+Además importamos de react-hooks el ApolloProvider
+que nos va a permitir hacer uso del cliente que creamos.
+
+ Retornamos en nuestro component App el ApolloProvider, y a este le pasamos como propiedad
+ el cliente
+ ```
+  function App() {
+      return<ApolloProvider client={client}>
+          <div className='wrapper'>
+          </div>
+      </ApolloProvider>
+    }
+ ```
+
+ Nota: Todo lo que este dentro(hijos) del ApolloProvider,
+ pueder hacer uso del client. para entender mejor el uso del Context / Provider ir: https://es.reactjs.org/docs/context.html, o investigar sobre manejadores de estado como Redux o MobX.
+
+Primero crearmos una carpeta llamada query y allí crearemos una archivo llamado query.js.
+
+```
+ import { gql } from 'apollo-boost'
+
+export const QUERY_POST = gql`
+   {
+    allPost{
+        title,
+        body, 
+    }
+   }
+`
+
+```
+
+Del paquete apollo-boost usaremos gql que es un Tagged template listerals características de ES6. Dentro de gql escribimos nuestro query tal cual como lo hemos venido haciendo en el playground de API.
+
+**Nota**: Tagged template listerals es una característica que nos permite ejecutar funciones pero utilizando las templates strings(plantillas literales) en lugar d las llamadas comunes a las funciones () con los paréntesis
+
+Ejemplo:
+
+```
+  funcion f(name){
+    return name
+  }
+
+  //invocamos la función
+  const name = f`Juan`
+  console.log(name) // ['juan']
+```
+
+
+Ahora vamos a crear un componente que nos permita, listar todos lo post. Creamos una carpeta componente y dentro una carpta posts. Y dentro de esta, crearemos dos archivos, uno es PostList.js, el otro posts.module.css
+
+PostList.js
+
+```
+ import { useQuery } from '@apollo/react-hooks'
+import React from 'react'
+import { QUERY_POST } from '../../query/query'
+import style from './posts.module.css'
+
+export const Post=({title,body})=>(
+    <article className={style.article}>
+        <h2>{title}</h2>
+        <div>
+            <p>{body}</p>
+        </div>
+    </article>
+)
+
+
+export const PostList=()=>{
+    
+    const {loading, error, data } = useQuery(QUERY_POST)
+
+    return<section className={style.section}>
+        { error ?
+          (<span>Lo sentimos ha sucedido un error</span>) :
+          (<>
+            {
+              loading ? (<p>Cargando...</p>):
+              (<>
+               {
+                  data.allPost.map(element=>{
+                      return<Post {...element}/>
+                  }) 
+               }
+              </>)
+            }
+          </>)
+        }
+    </section>
+}
+```
+
+Aquí importamos el query creado anteriormente para poder ejecutarlo
+
 
 
 <div id='id6'/>

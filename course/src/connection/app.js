@@ -23,6 +23,7 @@ app.get('/',(req,res)=>{
 })
 
 
+
  server.applyMiddleware({app});
  app.listen(3001,()=> console.info(`Graph run on,Running.....${server.graphqlPath}`));
 }

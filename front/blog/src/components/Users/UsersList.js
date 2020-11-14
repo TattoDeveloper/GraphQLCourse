@@ -14,17 +14,17 @@ export const UserList=()=>{
    const save=(e)=>{
       e.preventDefault()
       const elements = e.target.elements
-
-      const data = {
-        title: elements[0].value,
-        body:elements[1].value,
-        published: true,
-        userID:"5f946339021e066420d2c87f"
-    }
-
-    console.log(data)
-
-      createPost({variables: data})
+       console.log(createPost)
+      try{
+      //   createPost({variables: {
+      //     title: elements[0].value,
+      //     body:elements[1].value,
+      //     published: true,
+      //     userID:"5f946339021e066420d2c87f"
+      // }})
+      }catch(e){
+         console.log(e)
+      }
    }
 
   return(
