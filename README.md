@@ -903,8 +903,43 @@ export const PostList=()=>{
 }
 ```
 
-Aquí importamos el query creado anteriormente para poder ejecutarlo
+Aquí importamos el query creado anteriormente para poder ejecutarlo.
 
+En este archivo creamos dos componentes y uno para representar un post individual, y otro para representar una lista de posts.
+
+Dentro del component PostList usarmos un hook del paquete @apollo/react-hook quenos va a permitir ejecutar la consulta.
+
+```
+ const {loading, error, data } = useQuery(QUERY_POST)
+```
+
+Usando destruncturing de Javascript, obtenemos lo valores que retorna el hook. Para saber más de los hooks ir a: https://es.reactjs.org/docs/hooks-intro.html.
+
+Usaremos esos valores retornados por el hook para validar el estado de nuestra consulta, y actualizar nuestra interfaz de usuario, de acuerdo a ese estado.
+
+```
+return<section className={style.section}>
+        { error ?
+          (<span>Lo sentimos ha sucedido un error</span>) :
+          (<>
+            {
+              loading ? (<p>Cargando...</p>):
+              (<>
+               {
+                  data.allPost.map(element=>{
+                      return<Post {...element}/>
+                  }) 
+               }
+              </>)
+            }
+          </>)
+        }
+    </section>
+```
+Si el query es exitoso y retorna los datos,  iteramos sobre ellos para mostrarlos en pantalla.
+
+Listamos los Posts
+![Screenshot](screens/ui.JPG)
 
 
 <div id='id6'/>
