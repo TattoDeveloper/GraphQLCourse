@@ -4,14 +4,41 @@ const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 
-let twitts = []
-let users = []
+let twitts = [{
+    id:1,
+    text: "Texto de prueba",
+    date: new Date(),
+    user: 1
+},
+{
+    id:2,
+    text: "Texto de prueba 2",
+    date: new Date(),
+    user: 1
+}
+]
+let users = [{
+    id:1,
+    name:"Juan",
+    email:"jota@gmail.com",
+    twits:[1,2]  
+},
+{
+    id:2,
+    name:"Dani",
+    email:"dani@gmail.com",
+    twits:[]
+}
+
+]
 
 const typeDefs = gql`
   type Query{
     totalTwitts:Int!,
     allTwitts:[Twitt!]!,
-    allUsers:[User!]!
+    allUsers:[User!]!,
+    User: User,
+    Twitt: Twitt!
   }
 
   type Mutation{
@@ -23,13 +50,14 @@ const typeDefs = gql`
       id: ID!,
       name: String!
       email: String!
+      twits:[Twitt!]!
   }
   
  type Twitt{
     id: ID!
     text: String!,
     date: Date,
-    creator: User!
+    user: User!
  }
  scalar Date
 `
@@ -37,7 +65,13 @@ const resolvers = {
     Query:{
         totalTwitts:()=> twitts.length,
         allTwitts:()=> twitts,
-        allUsers:()=> users
+        allUsers:()=> users,
+    },
+    User:{
+        twits:parent=> twitts.filter(twitt => parent.twits.includes(twitt.id))
+    },
+    Twitt:{
+        user: parent=> users.find(user => user.id == parent.user)
     },
     Mutation:{
         createTwitt:(parent, payload)=>{

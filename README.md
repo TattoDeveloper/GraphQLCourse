@@ -913,7 +913,7 @@ Dentro del component PostList usarmos un hook del paquete @apollo/react-hook que
  const {loading, error, data } = useQuery(QUERY_POST)
 ```
 
-Usando destruncturing de Javascript, obtenemos lo valores que retorna el hook. Para saber más de los hooks ir a: https://es.reactjs.org/docs/hooks-intro.html.
+Usando destructuring de Javascript, obtenemos lo valores que retorna el hook. Para saber más de los hooks ir a: https://es.reactjs.org/docs/hooks-intro.html.
 
 Usaremos esos valores retornados por el hook para validar el estado de nuestra consulta, y actualizar nuestra interfaz de usuario, de acuerdo a ese estado.
 
@@ -945,7 +945,18 @@ Listamos los Posts
 <div id='id6'/>
 
 #### Tema 6: Fragments, Interfaces, Unions
-   En construcción
+   ***Fragments***
+   GraphQl nos permite reutilzar  código, para ello utilizamos los fragments son
+   pequeñas piezas de código que sabemos que vamos a necesitar en más de un Query, por lo que para prevenir errors al estart copiando más de una vez la misma pieza de código, la definimos en un fragment que podemos usar tantas veces como queramos.
+   Definiendo Fragments
+   ```
+     fragment UserFields on User{
+          id,
+          name
+        }
+   ``` 
+
+   Como se puede apreciar, el fragmen se le define un nombre y debe ir asociado a un tipo, en este caso al type User. Por lo tanto, el fragment nos va a permitir, obtener los campos del type User que queremos estar reultilzando constantement.
    
 
 
