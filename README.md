@@ -956,7 +956,7 @@ Listamos los Posts
         }
    ``` 
 
-   Como se puede apreciar, el fragmen se le define un nombre y debe ir asociado a un tipo, en este caso al type User. Por lo tanto, el fragment nos va a permitir, obtener los campos del type User que queremos estar reultilzando constantement.
+   Como se puede apreciar,a el fragment se le define un nombre y debe ir asociado a un tipo, en este caso al type User. Por lo tanto, el fragment nos va a permitir, obtener los campos del type User que queremos estar reultilzando constantement.
 
    Para este ejemplo vamos a reutilizar la aplicacón miniTwitter y vamos a modificarla, para poder utilizar los fragments.
 
@@ -1003,9 +1003,118 @@ Listamos los Posts
   y lo mismo para el caso de consultar todos los usuarios, poder ver si deseamos lo twitts que estos han creado.
   En el caso de el resolver User, el paramtro parent hace referencia al type User por lo  que en este resolver podemos hacer uso de los fields del type user, para filtrar
 
-  Lo mismo para Twitt en este caso el parent es type Twitt y podemos hacer uso de sus fields, para filtrar
+  Lo mismo para Twitt en este caso el parent es type Twitt y podemos hacer uso de sus fields, para filtrar.
 
+  Ahora podriamos consultar los usarios con sus twitts
+  ```
+   allUsers{
+    id,
+    name,
+    twits{
+      id,
+      text
+    }
+  }
+  ```
+  Esta consulta nos traería:
+  ```
+   {
+  "data": {
+    "allUsers": [
+      {
+        "id": "1",
+        "name": "Juan",
+        "twits": [
+          {
+            "id": "1",
+            "text": "Texto de prueba"
+          },
+          {
+            "id": "2",
+            "text": "Texto de prueba 2"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "name": "Dani",
+        "twits": []
+      }
+    ]
+    }
+   }
+  ```
 
+  Ahora si corremos el query para todos los twitts.
+
+  ```
+    allTwitts{
+    id,
+    text,
+    user{
+      id,
+      name
+    }
+  }
+  ```
+  Nos da como resultado:
+
+  ```
+   {
+    "data": {
+      "allTwitts": [
+        {
+          "id": "1",
+          "text": "Texto de prueba",
+          "user": {
+            "id": "1",
+            "name": "Juan"
+          }
+        },
+        {
+          "id": "2",
+          "text": "Texto de prueba 2",
+          "user": {
+            "id": "1",
+            "name": "Juan"
+          }
+        }
+      ]
+    }
+  }
+  ```
+
+Si observamos en ambos queries, a la hora de traer la información del usuario
+siempre estamos pidiendo los mismo campos: id, name. Es Ahí donde es util utilzar los fragments
+
+```
+ fragment UserFields on User{
+  id,
+  name
+}
+```
+
+Volvermos a nuestra difinición de fragment y decimo que pare este, obtendremos el id y el name del type User. Ahora para utilizarlo, allí donde es necesario esos campos, usarmos el fragment con el operador spread.
+
+```
+ allUsers{
+    ...UserFields
+    twits{
+      id,
+      text
+    }
+  }
+
+allTwitts{
+    id,
+    text,
+    user{
+      ...UserFields
+    }
+  }
+  
+```
+Como vemos tanto en la consulta de todos los usuario, como en el usario dentro de twitt, podemos usar el fragment y obtener los mismo resultados.
    
 
 
