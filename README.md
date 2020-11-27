@@ -945,7 +945,7 @@ Listamos los Posts
 <div id='id6'/>
 
 #### Tema 6: Fragments, Interfaces, Unions
-   ***Fragments***
+   ***Fragments:***
    GraphQl nos permite reutilzar  código, para ello utilizamos los fragments son
    pequeñas piezas de código que sabemos que vamos a necesitar en más de un Query, por lo que para prevenir errors al estart copiando más de una vez la misma pieza de código, la definimos en un fragment que podemos usar tantas veces como queramos.
    Definiendo Fragments
@@ -957,6 +957,55 @@ Listamos los Posts
    ``` 
 
    Como se puede apreciar, el fragmen se le define un nombre y debe ir asociado a un tipo, en este caso al type User. Por lo tanto, el fragment nos va a permitir, obtener los campos del type User que queremos estar reultilzando constantement.
+
+   Para este ejemplo vamos a reutilizar la aplicacón miniTwitter y vamos a modificarla, para poder utilizar los fragments.
+
+   Vamos a definie en query dos nuevas consultas
+
+   ```
+    type Query{
+        .....
+        User: User,
+        Twitt: Twitt!
+    }
+   ```
+   Es momento de recordar como deben lucir nuestros types, User, Twitt
+
+   ```type User{
+      id: ID!,
+      name: String!
+      email: String!
+      twits:[Twitt!]!
+  }
+  
+    type Twitt{
+        id: ID!
+        text: String!,
+        date: Date,
+        user: User!
+    }
+   ```
+
+   Cabe recordar aquí, entre estos dos types, existe una relación de uno a muchos; es decir que un usuario puede crear muchos twitts, y que un twitt pertenece a un usuario. 
+
+   Ahora debemos modificar nuestros resolvers para poder materializar esa relación a la hora de hacer las consultas
+
+   ```
+     User:{
+        twits:parent=> twitts.filter(twitt => parent.twits.includes(twitt.id))
+    },
+    Twitt:{
+        user: parent=> users.find(user => user.id == parent.user)
+    },
+   ```
+  El código anterior, creamos dos custom Resolvers uno para usuario, otro para twitt.
+  Esto se hace con el fin de que al consultart todos los twitts, el camp user dentro del type Twitt no venga nulo y nos permita consultart los fields del tipo usario.
+  y lo mismo para el caso de consultar todos los usuarios, poder ver si deseamos lo twitts que estos han creado.
+  En el caso de el resolver User, el paramtro parent hace referencia al type User por lo  que en este resolver podemos hacer uso de los fields del type user, para filtrar
+
+  Lo mismo para Twitt en este caso el parent es type Twitt y podemos hacer uso de sus fields, para filtrar
+
+
    
 
 
