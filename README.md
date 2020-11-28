@@ -1115,7 +1115,53 @@ allTwitts{
   
 ```
 Como vemos tanto en la consulta de todos los usuario, como en el usario dentro de twitt, podemos usar el fragment y obtener los mismo resultados.
-   
+
+
+***Union type:***
+El union type nos permite tener más de un tipo de retorno para un campo, sin necesidad de definir ningún campo especifico. Nos posibilita devolver tipos de datos sin que esten necesariamente relacionado.
+
+Para nuestro ejemplo crearemos dos types nuevos.  type Like, type Comment
+```
+
+
+ type Like{
+    id: ID!,
+    twitt: Twitt,
+    date: Date!
+  }
+ 
+  type Comment{
+    id: ID!,
+    text: String!,
+    twitt: Twitt,
+    date: Date!
+  }
+```
+
+Ahora definimos un type que nos permita obtener uno u otro dependiendo del Twitt y añadimos el campo feed en el type Twitt
+
+```
+ union Feed = Like | Comment
+
+ type Twitt{
+    id: ID!
+    text: String!,
+    date: Date,
+    user: User!
+    feed:[Feed!]
+ }
+```
+Es momento de hacer unas modificaciones en nuestros resolvers para poder consultar los datos haciendo uso de las uniones
+
+
+```
+     Twitt:{
+        user: parent=> users.find(user => user.id == parent.user),
+        feed: parent=> {
+           return likes.filter(like => like.twitt == parent.id)
+                 .concat(comments.filter(comment => comment.id == parent.id))
+        }
+```
 
 
   
