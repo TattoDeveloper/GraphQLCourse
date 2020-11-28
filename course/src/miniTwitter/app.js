@@ -138,7 +138,6 @@ const resolvers = {
     },
     Feed:{
         __resolveType(obj,_){
-           console.log(obj,'objec')
            return obj.text ? 'Comment' : 'Like'
         }
     },

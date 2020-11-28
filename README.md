@@ -1162,7 +1162,108 @@ Es momento de hacer unas modificaciones en nuestros resolvers para poder consult
                  .concat(comments.filter(comment => comment.id == parent.id))
         }
 ```
+Añadimos un nuevo resolver llamado feed, para traer tanto comentarios como likes, según tenga el twitt. También creamos un resolver para la unión:
 
+```
+ Feed:{
+        __resolveType(obj,_){
+           return obj.text ? 'Comment' : 'Like'
+        }
+    },
+```
 
+Ahora  vamos a correr el query para traer los twitts y sus comentarios y  likes.
+Para ello adentro del campo feed utilizaremos el operador spread(...)  para cada tipo posible dentro de la unión
+
+```
+  feed {
+      ... on Like{
+        id,
+        date
+      }
+      ... on Comment{
+        id,
+        text,
+        date
+    }
+``` 
+El query completo:
+
+```
+{
+  allTwitts{
+    id,
+    text,
+    user{
+      ...UserFields
+    },
+    feed {
+      ... on Like{
+        id,
+        date
+      }
+      ... on Comment{
+        id,
+        text,
+        date
+      }
+    }
+  }
+}
+ 
+```
+Lo que nos retornaría
+
+```
+{
+  "data": {
+    "allTwitts": [
+      {
+        "id": "1",
+        "text": "Texto de prueba",
+        "user": {
+          "id": "1",
+          "name": "Juan"
+        },
+        "feed": [
+          {
+            "id": "1",
+            "date": 1606525657900
+          },
+          {
+            "id": "1",
+            "text": "comentario 1",
+            "date": 1606525657900
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "text": "Texto de prueba 2",
+        "user": {
+          "id": "1",
+          "name": "Juan"
+        },
+        "feed": [
+          {
+            "id": "2",
+            "date": 1606525657900
+          },
+          {
+            "id": "3",
+            "date": 1606525657900
+          },
+          {
+            "id": "2",
+            "text": "comentario 2",
+            "date": 1606525657900
+          }
+        ]
+      }
+    ]
+  }
+}
+ 
+```
   
 
